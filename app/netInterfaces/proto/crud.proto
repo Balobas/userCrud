@@ -1,0 +1,59 @@
+syntax = "proto3";
+package userCRUD;
+option go_package="interfaces";
+
+import "google/protobuf/timestamp.proto";
+
+
+service UserCrud {
+  rpc CreateUser(User) returns (CreateUserResponse) {}
+  rpc UpdateUser(User) returns (Response) {}
+  rpc ArchiveUser(UserUID) returns (Response) {}
+  rpc RestoreUser(UserUID) returns (Response) {}
+  rpc DeleteUser(UserUID) returns (Response) {}
+  rpc GetUserByUID(UserUID) returns (GetUserResponse) {}
+  rpc GetUsersByFIO(UserFIOParams) returns (GetUsersResponse) {}
+  rpc GetUserByPhoneNumber(UserPhoneParams) returns (GetUserResponse) {}
+}
+
+
+message User {
+  string uid = 1;
+  string lastName = 3;
+  string name = 2;
+  string patronymic = 4;
+  string phoneNumber = 5;
+  google.protobuf.Timestamp createdDateTime = 6;
+  google.protobuf.Timestamp updatedDateTime = 7;
+  bool isArchived = 8;
+}
+
+message CreateUserResponse {
+  string uid = 1;
+}
+
+message Response {
+  string message = 1;
+}
+
+message UserUID {
+  string uid = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+message UserFIOParams {
+  string lastName = 2;
+  string name = 1;
+  string patronymic = 3;
+}
+
+message GetUsersResponse {
+  repeated User users = 1;
+}
+
+message UserPhoneParams {
+  string phone = 1;
+}
