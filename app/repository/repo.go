@@ -7,23 +7,23 @@ import (
 	"userCrud/app/database"
 )
 
-type RepoDatabase string
+type RepositoryDatabase string
 
 const (
-	RepoDatabaseMongo = RepoDatabase("mongo")
+	RepoDatabaseMongo = RepositoryDatabase("mongo")
 )
 
 type DatabaseOptions struct {
-	Database RepoDatabase
-	DatabaseName string
+	Database                   RepositoryDatabase
+	DatabaseName               string
 	UsersTableOrCollectionName string
-	DatabaseURI string
+	DatabaseURI                string
 }
 
 func GetUserRepository() (data.UserRepository, error) {
 	options := DatabaseOptions{}
 
-	options.Database = RepoDatabase(os.Getenv("REPO_DATABASE"))
+	options.Database = RepositoryDatabase(os.Getenv("REPOSITORY_DATABASE"))
 	options.DatabaseName = os.Getenv("DATABASE_NAME")
 	options.UsersTableOrCollectionName = os.Getenv("USERS_TABLE_OR_COLLECTION_NAME")
 	options.DatabaseURI = os.Getenv("DATABASE_URI")
