@@ -3,17 +3,55 @@ package userCRUD;
 option go_package="interfaces";
 
 import "google/protobuf/timestamp.proto";
+ import "google/api/http";
 
 
 service UserCrud {
-  rpc CreateUser(User) returns (CreateUserResponse) {}
-  rpc UpdateUser(User) returns (Response) {}
-  rpc ArchiveUser(UserUID) returns (Response) {}
-  rpc RestoreUser(UserUID) returns (Response) {}
-  rpc DeleteUser(UserUID) returns (Response) {}
-  rpc GetUserByUID(UserUID) returns (GetUserResponse) {}
-  rpc GetUsersByFIO(UserFIOParams) returns (GetUsersResponse) {}
-  rpc GetUserByPhoneNumber(UserPhoneParams) returns (GetUserResponse) {}
+  rpc CreateUser(User) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/v1/users"
+      body: "user"
+    };
+  }
+  rpc UpdateUser(User) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/users/update"
+      body: "user"
+    };
+  }
+  rpc ArchiveUser(UserUID) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/users/archive"
+      body: "uid"
+    };
+  }
+  rpc RestoreUser(UserUID) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/users/restore"
+      body: "uid"
+    };
+  }
+  rpc DeleteUser(UserUID) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/users/delete"
+      body: "uid"
+    };
+  }
+  rpc GetUserByUID(UserUID) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/{uid}"
+    };
+  }
+  rpc GetUsersByFIO(UserFIOParams) returns (GetUsersResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/by_fio/{name}/{lastName}/{patronymic}"
+    };
+  }
+  rpc GetUserByPhoneNumber(UserPhoneParams) returns (GetUserResponse) {
+    option (google.api.http) = {
+      get: "/v1/users/by_phone/{phone}"
+    };
+  }
 }
 
 

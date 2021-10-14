@@ -16,6 +16,7 @@ services:
         - DATABASE_NAME=${DATABASE_NAME}
         - USERS_TABLE_OR_COLLECTION_NAME=${USERS_TABLE_OR_COLLECTION_NAME}
         - DATABASE_URI=${DATABASE_URI}
+        - PORT=${PORT}
       ports:
         - '3000:3000'
       networks:
